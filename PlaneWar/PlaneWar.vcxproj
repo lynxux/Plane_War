@@ -209,6 +209,7 @@
     <ResourceCompile Include="PlaneWar.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\..\Desktop\发给学生的材料\plane\me.bmp" />
     <Image Include="res\PlaneWar.ico" />
     <Image Include="res\PlaneWarDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
@@ -221,4 +222,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="PlaneWar.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
