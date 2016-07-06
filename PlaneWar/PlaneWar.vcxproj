@@ -185,7 +185,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MyPlane.h" />
     <ClInclude Include="PlaneWar.h" />
     <ClInclude Include="PlaneWarDoc.h" />
     <ClInclude Include="PlaneWarView.h" />
@@ -194,7 +196,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MyPlane.cpp" />
     <ClCompile Include="PlaneWar.cpp" />
     <ClCompile Include="PlaneWarDoc.cpp" />
     <ClCompile Include="PlaneWarView.cpp" />

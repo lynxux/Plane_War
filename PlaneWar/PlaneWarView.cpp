@@ -105,8 +105,8 @@ void CPlaneWarView::OnDraw(CDC* pDC)
 	imglist.Add(&bitmap, RGB(0,0,0));
 	CPoint pt(400, 400);
 	imglist.Draw(pDC, 0, pt, ILD_TRANSPARENT);
-
-
+	
+	myplane.Draw(pDC,TRUE);
 	
 
 
@@ -159,6 +159,26 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 	CString s;
 	s.Format(_T("%d"), i++);
 	pDC->TextOutW(50, 90,s);
+	//myplane.Draw(pDC, TRUE);
+
+	/*CRect rect;	           //另一种刷屏使飞机移动的方法//但会出现闪烁  //双缓冲？？？
+	GetClientRect(&rect);
+	pDC->Rectangle(rect);
+    CBitmap bitmap;
+	bitmap.LoadBitmapW(IDB_ME);
+	CImageList imglist;
+	imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
+	imglist.Add(&bitmap, RGB(0, 0, 0));
+	CPoint pt(j, k);
+	imglist.Draw(pDC, 0, CPoint(j, k), ILD_TRANSPARENT);*/
+	CRect rect;
+	GetClientRect(&rect);
+	pDC->Rectangle(rect);
+	if (myplane.GetPoint().y<-60)
+		myplane.SetPoint(500);
+	myplane.Draw(pDC,TRUE);
+
+
 
 	CView::OnTimer(nIDEvent);
 	//switch (nIDEvent) {
@@ -175,7 +195,10 @@ int CPlaneWarView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 
 	// TODO:  在此添加您专用的创建代码
-	SetTimer(1, 1000, NULL);
+
+	//添加定时器！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+	SetTimer(1, 15, NULL);
+	myplane.LoadImage();
 	//SetTimer(1, 3000, NULL);
 	//SetTimer(2, 5000, NULL);
 	return 0;
@@ -190,12 +213,6 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	s.Format(_T("%d"), nChar);
 	pDC->TextOutW(50, 150, s);
 
-	//CBitmap bitmap;
-	//bitmap.LoadBitmapW(IDB_ME);
-	//CImageList imglist;
-	//imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
-	//imglist.Add(&bitmap, RGB(0, 0, 0));
-	//CPoint pt(j, k);
 
 	if (nChar == VK_SPACE) {
 		//CRect rect;  //矩形填满屏幕
@@ -210,7 +227,7 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CRect rect;  //矩形填满屏幕
 		GetClientRect(&rect);
 		pDC->Rectangle(rect);
-		j-=10;
+		j-=12;
 		CBitmap bitmap;
 		bitmap.LoadBitmapW(IDB_ME);
 		CImageList imglist;
@@ -219,14 +236,13 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CPoint pt(j, k);
 		imglist.Draw(pDC, 0, CPoint(j, k), ILD_TRANSPARENT);
 
-
-		 KillTimer(0);
+		 //KillTimer(0);
 	}
 	else if (nChar == VK_RIGHT) {
 		CRect rect;  //矩形填满屏幕
 		GetClientRect(&rect);
 		pDC->Rectangle(rect);
-		j+=10;
+		j+=12;
 		CBitmap bitmap;
 		bitmap.LoadBitmapW(IDB_ME);
 		CImageList imglist;
@@ -240,7 +256,7 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CRect rect;  //矩形填满屏幕
 		GetClientRect(&rect);
 		pDC->Rectangle(rect);
-		k-=10;
+		k-=12;
 		CBitmap bitmap;
 		bitmap.LoadBitmapW(IDB_ME);
 		CImageList imglist;
@@ -254,7 +270,7 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CRect rect;  //矩形填满屏幕
 		GetClientRect(&rect);
 		pDC->Rectangle(rect);
-		k+=10;
+		k+=12;
 		CBitmap bitmap;
 		bitmap.LoadBitmapW(IDB_ME);
 		CImageList imglist;
