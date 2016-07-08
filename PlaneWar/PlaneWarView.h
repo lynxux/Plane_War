@@ -48,6 +48,7 @@ public:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 	CMyPlane myplane;
+	CObList MyPlaneList;
 };
 
 #ifndef _DEBUG  // PlaneWarView.cpp 中的调试版本

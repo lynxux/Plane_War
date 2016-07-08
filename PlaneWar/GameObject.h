@@ -19,9 +19,11 @@ public:
 	{
 		return m_ptPos;
 	}
-	CPoint SetPoint(int x) {
-		m_ptPos.y = x;
-		return m_ptPos.y;
+	CPoint SetPoint(int x,int y) {
+		m_ptPos.y = y;
+		m_ptPos.x = x;
+		//m_ptPos.x = x;
+		return m_ptPos;
 	}
 
 protected:

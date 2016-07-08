@@ -1,4 +1,5 @@
 #pragma once
+#include "resource.h"
 #include "GameObject.h"
 
 
@@ -39,8 +40,8 @@ public:
 	BOOL Fired();
 
 public:
-	static const int PLANE_WIDTH = 50;
-	static const int PLANE_HEIGHT = 60;
+	static const int PLANE_WIDTH = 124;
+	static const int PLANE_HEIGHT = 97;
 private:
 
 	static CImageList m_Images;

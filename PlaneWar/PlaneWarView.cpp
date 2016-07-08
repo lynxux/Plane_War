@@ -1,18 +1,16 @@
 
 // PlaneWarView.cpp : CPlaneWarView 类的实现
 //
-
 #include "stdafx.h"
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
 // ATL 项目中进行定义，并允许与该项目共享文档代码。
 #ifndef SHARED_HANDLERS
 #include "PlaneWar.h"
 #endif
-
+#include <Winuser.h>
 #include "resource.h"
 #include "PlaneWarDoc.h"
 #include "PlaneWarView.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -63,50 +61,50 @@ void CPlaneWarView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
-	pDC->Rectangle(10, 10, 200, 200);   //设置矩形
-	CBrush brush;
-	brush.CreateSolidBrush(RGB(90, 184, 137));
-	pDC->SelectObject(&brush);
-	pDC->Rectangle(10, 10, 300, 300);
+	//pDC->Rectangle(10, 10, 200, 200);   //设置矩形
+	//CBrush brush;
+	//brush.CreateSolidBrush(RGB(90, 184, 137));
+	//pDC->SelectObject(&brush);
+	//pDC->Rectangle(10, 10, 300, 300);
+
+	////CRect rect;  //矩形填满屏幕
+	////GetClientRect(&rect);
+	////pDC->Rectangle(rect);
+
+	//pDC->SetBkMode(TRANSPARENT);  //设置背景为透明
+	//pDC->TextOutW(50, 50, _T("LINK")); //设置文字
+
+ //   //设置字体
+	//CFont font;
+	//font.CreateFontW(50, 25, 100, 100, FW_NORMAL, 1, 1, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DECORATIVE, _T("Arial"));
+	//pDC->SelectObject(&font);
+	//CFont *oldfont = pDC->SelectObject(&font);
+	//pDC->TextOutW(100, 100, _T("Network Engineer"));
+
+
+	////画直线
+	//CPen pen;
+	//pen.CreatePen(PS_DASH, 1, RGB(0, 0, 0));
+	//pDC->SelectObject(&pen);
+	//pDC->MoveTo(30, 50);
+	//pDC->LineTo(100, 400);
+
+	//pDC->SelectObject(oldfont);   //
+	//pDC->TextOutW(300, 300, _T("Software Engineer"));
 
 	//CRect rect;  //矩形填满屏幕
 	//GetClientRect(&rect);
 	//pDC->Rectangle(rect);
 
-	pDC->SetBkMode(TRANSPARENT);  //设置背景为透明
-	pDC->TextOutW(50, 50, _T("LINK")); //设置文字
-
-    //设置字体
-	CFont font;
-	font.CreateFontW(50, 25, 100, 100, FW_NORMAL, 1, 1, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DECORATIVE, _T("Arial"));
-	pDC->SelectObject(&font);
-	CFont *oldfont = pDC->SelectObject(&font);
-	pDC->TextOutW(100, 100, _T("Network Engineer"));
-
-
-	//画直线
-	CPen pen;
-	pen.CreatePen(PS_DASH, 1, RGB(0, 0, 0));
-	pDC->SelectObject(&pen);
-	pDC->MoveTo(30, 50);
-	pDC->LineTo(100, 400);
-
-	pDC->SelectObject(oldfont);   //
-	pDC->TextOutW(300, 300, _T("Software Engineer"));
-
-	CRect rect;  //矩形填满屏幕
-	GetClientRect(&rect);
-	pDC->Rectangle(rect);
-
-	CBitmap bitmap;
-	bitmap.LoadBitmapW(IDB_ME);//添加的图片
-	CImageList imglist;
-	imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1,0);
-	imglist.Add(&bitmap, RGB(0,0,0));
-	CPoint pt(400, 400);
-	imglist.Draw(pDC, 0, pt, ILD_TRANSPARENT);
+	//CBitmap bitmap;
+	//bitmap.LoadBitmapW(IDB_ME);//添加的图片
+	//CImageList imglist;
+	//imglist.Create(124, 97, ILC_COLOR32 | ILC_MASK, 1,0);
+	//imglist.Add(&bitmap, RGB(0,0,0));
+	//CPoint pt(400, 400);
+	//imglist.Draw(pDC, 0, pt, ILD_TRANSPARENT);
 	
-	myplane.Draw(pDC,TRUE);
+	//myplane.Draw(pDC,TRUE);
 	
 
 
@@ -154,38 +152,63 @@ CPlaneWarDoc* CPlaneWarView::GetDocument() const // 非调试版本是内联的
 void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	//添加背景图片
 	CDC *pDC = GetDC();
-	//i++;
-	CString s;
-	s.Format(_T("%d"), i++);
-	pDC->TextOutW(50, 90,s);
-	//myplane.Draw(pDC, TRUE);
+	CDC dcMem;
+	dcMem.CreateCompatibleDC(pDC);
+    CRect rctClient;
+	GetClientRect(rctClient);
+	CBitmap bitmap2;
+	bitmap2.LoadBitmapW(IDB_background);
+	CBitmap *pbmpOld = dcMem.SelectObject(&bitmap2);
+	pDC->StretchBlt(0, 0, rctClient.Width(), rctClient.Height(), &dcMem, 0, 0, 1024, 768, SRCCOPY);
 
-	/*CRect rect;	           //另一种刷屏使飞机移动的方法//但会出现闪烁  //双缓冲？？？
-	GetClientRect(&rect);
-	pDC->Rectangle(rect);
-    CBitmap bitmap;
-	bitmap.LoadBitmapW(IDB_ME);
-	CImageList imglist;
-	imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
-	imglist.Add(&bitmap, RGB(0, 0, 0));
-	CPoint pt(j, k);
-	imglist.Draw(pDC, 0, CPoint(j, k), ILD_TRANSPARENT);*/
-	CRect rect;
-	GetClientRect(&rect);
-	pDC->Rectangle(rect);
-	if (myplane.GetPoint().y<-60)
-		myplane.SetPoint(500);
+
 	myplane.Draw(pDC,TRUE);
+	
+	short key;
+	key = GetKeyState(VK_UP);
+	if ((key & 0x80)!=0) {
+		myplane.SetVerMotion(-1);
+	}
+	key = GetKeyState(VK_DOWN);
+	if ((key & 0x80)!=0) {
+		myplane.SetVerMotion(1);
+	}
+    key = GetKeyState(VK_LEFT);
+    if ((key & 0x80)!=0) {
+	    myplane.SetHorMotion(-1);
+	}
+	key = GetKeyState(VK_RIGHT);
+    if ((key & 0x80)!=0) {
+		myplane.SetHorMotion(1);
+	}
 
 
+
+	//开始遍历
+	POSITION pos = MyPlaneList.GetHeadPosition();
+	POSITION pos2;
+	while (pos != NULL) {
+		pos2 = pos;
+		CMyPlane *_myplane = (CMyPlane *)MyPlaneList.GetNext(pos);
+		if (_myplane->GetPoint().y < 0) {
+			MyPlaneList.RemoveAt(pos2);
+			delete(_myplane);
+		}
+		else {
+			_myplane->Draw(pDC, false);
+			//碰撞检测
+			CRect rect;
+			int irect = rect.IntersectRect(myplane.GetRect(), _myplane->GetRect());
+			if (irect != 0) {
+				pDC->SetBkMode(TRANSPARENT);
+				pDC->TextOutW(20, 50, _T("翻车辣"));
+			}
+		}
+	}
 
 	CView::OnTimer(nIDEvent);
-	//switch (nIDEvent) {
-	//case 0: i = i - 100;
-	//case 1: i = i + 100;
-	//case 2: i = i+1;
-	//}
 }
 
 
@@ -197,93 +220,82 @@ int CPlaneWarView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// TODO:  在此添加您专用的创建代码
 
 	//添加定时器！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-	SetTimer(1, 15, NULL);
-	myplane.LoadImage();
-	//SetTimer(1, 3000, NULL);
-	//SetTimer(2, 5000, NULL);
+	SetTimer(1, 100, NULL);
+
+	CMyPlane::LoadImage();
+
 	return 0;
 }
 
-
+//飞机的空格，左右控制
 void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	CDC *pDC = GetDC();
-	CString s;
-	s.Format(_T("%d"), nChar);
-	pDC->TextOutW(50, 150, s);
+	//CDC *pDC = GetDC();  //显示按键
+	//CString s;
+	//s.Format(_T("%d"), nChar);
+	//pDC->TextOutW(50, 150, s);
 
 
-	if (nChar == VK_SPACE) {
-		//CRect rect;  //矩形填满屏幕
-		//GetClientRect(&rect);
-		//pDC->Rectangle(rect);
-		KillTimer(1);
+	//if (nChar == VK_SPACE) {
+	//	//CRect rect;  //矩形填满屏幕
+	//	//GetClientRect(&rect);
+	//	//pDC->Rectangle(rect);
+	//	KillTimer(1);
+	//}
+
+	//在新建列表里添加元素
+	if (nChar == VK_RETURN)
+	{
+		MyPlaneList.AddHead(new CMyPlane);
+
 	}
+	
+
+	//if (nChar == VK_UP) {
+	//	myplane.SetVerMotion(-1);
+	//	myplane.SetHorMotion(0);
+
+	//}
+	//if (nChar == VK_DOWN) {
+	//	myplane.SetVerMotion(1);
+	//    myplane.SetHorMotion(0);
+
+	//}
+	//if (nChar == VK_LEFT) {
+	//	myplane.SetHorMotion(-1);
+	//	//myplane.SetVerMotion(0);
+	//}
+	//if (nChar == VK_RIGHT) {
+	//	myplane.SetHorMotion(1);
+	//	//myplane.SetVerMotion(0);
+	//}
 
 
-	if (nChar == VK_LEFT) {
-		//刷屏，飞机坐标改变
-		CRect rect;  //矩形填满屏幕
-		GetClientRect(&rect);
-		pDC->Rectangle(rect);
+
+
+
+
+
+	/*if (nChar == VK_LEFT) {
 		j-=12;
-		CBitmap bitmap;
-		bitmap.LoadBitmapW(IDB_ME);
-		CImageList imglist;
-		imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
-		imglist.Add(&bitmap, RGB(0, 0, 0));
-		CPoint pt(j, k);
-		imglist.Draw(pDC, 0, CPoint(j, k), ILD_TRANSPARENT);
-
-		 //KillTimer(0);
 	}
 	else if (nChar == VK_RIGHT) {
-		CRect rect;  //矩形填满屏幕
-		GetClientRect(&rect);
-		pDC->Rectangle(rect);
 		j+=12;
-		CBitmap bitmap;
-		bitmap.LoadBitmapW(IDB_ME);
-		CImageList imglist;
-		imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
-		imglist.Add(&bitmap, RGB(0, 0, 0));
-		CPoint pt(j, k);
-		imglist.Draw(pDC, 0, CPoint(j, k), ILD_TRANSPARENT);
-
 	}
 	else if (nChar == VK_UP) {
-		CRect rect;  //矩形填满屏幕
-		GetClientRect(&rect);
-		pDC->Rectangle(rect);
 		k-=12;
-		CBitmap bitmap;
-		bitmap.LoadBitmapW(IDB_ME);
-		CImageList imglist;
-		imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
-		imglist.Add(&bitmap, RGB(0, 0, 0));
-		CPoint pt(j, k);
-		imglist.Draw(pDC, 0, CPoint(j, k), ILD_TRANSPARENT);
-
-	}
+    }
 	else if (nChar == VK_DOWN) {
-		CRect rect;  //矩形填满屏幕
-		GetClientRect(&rect);
-		pDC->Rectangle(rect);
 		k+=12;
-		CBitmap bitmap;
-		bitmap.LoadBitmapW(IDB_ME);
-		CImageList imglist;
-		imglist.Create(50, 60, ILC_COLOR8 | ILC_MASK, 1, 0);
-		imglist.Add(&bitmap, RGB(0, 0, 0));
-		CPoint pt(j, k);
-		imglist.Draw(pDC, 0, CPoint(j , k), ILD_TRANSPARENT);
+    }*/
 
-	}
-    ReleaseDC(pDC);
+
+    //ReleaseDC(pDC);
 
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
+
 
 
 void CPlaneWarView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -292,8 +304,29 @@ void CPlaneWarView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	
 	if (nChar == VK_SPACE) {
 
-		SetTimer(1, 1000, NULL);
+		SetTimer(1, 100, NULL);
 		//KillTimer(1);
 	}
+
+
+	if (nChar == VK_UP) {
+		myplane.SetVerMotion(0);
+		//myplane.SetHorMotion(0);
+
+	}
+	if (nChar == VK_DOWN) {
+		myplane.SetVerMotion(0);
+		//myplane.SetHorMotion(0);
+
+	}
+	if (nChar == VK_LEFT) {
+		myplane.SetHorMotion(0);
+		//myplane.SetVerMotion(0);
+	}
+	if (nChar == VK_RIGHT) {
+		myplane.SetHorMotion(0);
+		//myplane.SetVerMotion(0);
+	}
+
 	CView::OnKeyUp(nChar, nRepCnt, nFlags);
 }

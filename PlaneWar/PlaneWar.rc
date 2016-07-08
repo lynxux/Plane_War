@@ -86,7 +86,9 @@ IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 
 IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
 
-IDB_ME                  BITMAP                  "C:\\Users\\林\\Desktop\\发给学生的材料\\plane\\me.bmp"
+IDB_background          BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\bg4.bmp"
+
+IDB_ME                  BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\Hero_Player2.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
