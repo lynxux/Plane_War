@@ -32,6 +32,7 @@ protected:
 protected:
 	//物体的位置
 	CPoint  m_ptPos;
+	//CPoint m_bomb;
 };
 
 

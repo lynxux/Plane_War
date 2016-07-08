@@ -20,11 +20,8 @@ BOOL CGameObject::LoadImage(CImageList& imgList,UINT bmpID,COLORREF crMask,int c
 	CBitmap bmp;
 	if(!bmp.LoadBitmap(bmpID))
 		return FALSE;
-
-	if(!imgList.Create(cx, cy, ILC_COLOR32|ILC_MASK, nInitial, 0))
+	if(!imgList.Create(cx, cy, ILC_COLOR24 | ILC_MASK, nInitial, 0))
 		return FALSE;
-	
-
 	imgList.Add(&bmp, crMask);
 
 	return TRUE;

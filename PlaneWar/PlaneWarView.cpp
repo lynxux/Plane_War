@@ -26,6 +26,7 @@ BEGIN_MESSAGE_MAP(CPlaneWarView, CView)
 	ON_WM_CREATE()
 	ON_WM_KEYDOWN()
 	ON_WM_KEYUP()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CPlaneWarView 构造/析构
@@ -61,37 +62,32 @@ void CPlaneWarView::OnDraw(CDC* pDC)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
-	//pDC->Rectangle(10, 10, 200, 200);   //设置矩形
+
+
+
+
+    //pDC->Rectangle(10, 10, 200, 200);   //设置矩形
 	//CBrush brush;
 	//brush.CreateSolidBrush(RGB(90, 184, 137));
 	//pDC->SelectObject(&brush);
 	//pDC->Rectangle(10, 10, 300, 300);
-
-	////CRect rect;  //矩形填满屏幕
+    ////CRect rect;  //矩形填满屏幕
 	////GetClientRect(&rect);
 	////pDC->Rectangle(rect);
-
-	//pDC->SetBkMode(TRANSPARENT);  //设置背景为透明
+    //pDC->SetBkMode(TRANSPARENT);  //设置背景为透明
 	//pDC->TextOutW(50, 50, _T("LINK")); //设置文字
-
- //   //设置字体
+    //设置字体
 	//CFont font;
 	//font.CreateFontW(50, 25, 100, 100, FW_NORMAL, 1, 1, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DECORATIVE, _T("Arial"));
 	//pDC->SelectObject(&font);
 	//CFont *oldfont = pDC->SelectObject(&font);
 	//pDC->TextOutW(100, 100, _T("Network Engineer"));
-
-
-	////画直线
+    ////画直线
 	//CPen pen;
 	//pen.CreatePen(PS_DASH, 1, RGB(0, 0, 0));
 	//pDC->SelectObject(&pen);
 	//pDC->MoveTo(30, 50);
 	//pDC->LineTo(100, 400);
-
-	//pDC->SelectObject(oldfont);   //
-	//pDC->TextOutW(300, 300, _T("Software Engineer"));
-
 	//CRect rect;  //矩形填满屏幕
 	//GetClientRect(&rect);
 	//pDC->Rectangle(rect);
@@ -152,6 +148,8 @@ CPlaneWarDoc* CPlaneWarView::GetDocument() const // 非调试版本是内联的
 void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+
 	//添加背景图片
 	CDC *pDC = GetDC();
 	CDC dcMem;
@@ -165,6 +163,9 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 
 
 	myplane.Draw(pDC,TRUE);
+	//enemy.Draw(pDC, TRUE);
+	//bomb.Draw(pDC, TRUE);
+
 	
 	short key;
 	key = GetKeyState(VK_UP);
@@ -186,29 +187,105 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 
 
 
-	//开始遍历
-	POSITION pos = MyPlaneList.GetHeadPosition();
-	POSITION pos2;
-	while (pos != NULL) {
-		pos2 = pos;
-		CMyPlane *_myplane = (CMyPlane *)MyPlaneList.GetNext(pos);
-		if (_myplane->GetPoint().y < 0) {
-			MyPlaneList.RemoveAt(pos2);
-			delete(_myplane);
-		}
-		else {
-			_myplane->Draw(pDC, false);
-			//碰撞检测
-			CRect rect;
-			int irect = rect.IntersectRect(myplane.GetRect(), _myplane->GetRect());
-			if (irect != 0) {
-				pDC->SetBkMode(TRANSPARENT);
-				pDC->TextOutW(20, 50, _T("翻车辣"));
-			}
-		}
-	}
+	//开始遍历  敌机出现
+	//POSITION pos = EnemyList.GetHeadPosition();
+	//POSITION pos2;
+	//while (pos != NULL) {
+	//	pos2 = pos;
+	//	CEnemy *_enemy = (CEnemy *)EnemyList.GetNext(pos);
+	//	if (_enemy->GetPoint().y < 0) {
+	//		EnemyList.RemoveAt(pos2);
+	//		delete(_enemy);
+	//	}
+	//	else {
+	//		_enemy->Draw(pDC, false);
+	//		//碰撞检测
+	//		CRect rect;
+	//		int irect = rect.IntersectRect(_enemy->GetRect(), myplane.GetRect());
+	//		if (irect != 0) {
+	//			pDC->SetBkMode(TRANSPARENT);
+	//			pDC->TextOutW(20, 50, _T("翻车辣"));
+	//		}
+	//	}
+	//}
+
+
+	//子弹出现
+	//POSITION bpos = BombList.GetHeadPosition();
+	//POSITION bpos2;
+	//while (bpos != NULL) {
+	//	bpos2 = bpos;
+	//	CBomb *_bomb = (CBomb *)BombList.GetNext(bpos);
+	//	if (_bomb->GetPoint().y < 0) {
+	//		BombList.RemoveAt(bpos2);
+	//		delete(_bomb);
+	//	}
+	//	else {
+	//		_bomb->Draw(pDC, false);
+	//		//CRect rect;
+	//		//int irect = rect.IntersectRect(_bomb->GetRect(), enemy.GetRect());
+	//		//if (irect != 0) {
+	//			//pDC->SetBkMode(TRANSPARENT);
+	//			//pDC->TextOutW(20, 200, _T("爆炸啦啊啊啊啊啊啊啊"));
+	//		//}
+	//	}
+	//}
+
+
 
 	CView::OnTimer(nIDEvent);
+	switch(nIDEvent)
+	{
+	case 1: 
+	{
+		POSITION bpos = BombList.GetHeadPosition();
+		POSITION bpos2;
+		while (bpos != NULL) {
+			bpos2 = bpos;
+			CBomb *_bomb = (CBomb *)BombList.GetNext(bpos);
+			if (_bomb->GetPoint().y < 0) {
+				BombList.RemoveAt(bpos2);
+				delete(_bomb);
+			}
+			else {
+				_bomb->Draw(pDC, false);
+				//CRect rect;
+				//int irect = rect.IntersectRect(_bomb->GetRect(), enemy.GetRect());
+				//if (irect != 0) {
+				//pDC->SetBkMode(TRANSPARENT);
+				//pDC->TextOutW(20, 200, _T("爆炸啦啊啊啊啊啊啊啊"));
+				//}
+			}
+		}
+	  }
+	  break;
+	case 2: 
+	{
+		EnemyList.AddHead(new CEnemy);
+		POSITION pos = EnemyList.GetHeadPosition();
+		POSITION pos2;
+		while (pos != NULL) {
+			pos2 = pos;
+			CEnemy *_enemy = (CEnemy *)EnemyList.GetNext(pos);
+			if (_enemy->GetPoint().y < 0) {
+				EnemyList.RemoveAt(pos2);
+				delete(_enemy);
+			}
+			else {
+				_enemy->Draw(pDC, false);
+				//碰撞检测
+				CRect rect;
+				int irect = rect.IntersectRect(_enemy->GetRect(), myplane.GetRect());
+				if (irect != 0) {
+					pDC->SetBkMode(TRANSPARENT);
+					pDC->TextOutW(20, 50, _T("翻车辣"));
+				}
+			}
+		}
+	  }
+	  break;
+	}
+
 }
 
 
@@ -221,9 +298,13 @@ int CPlaneWarView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	//添加定时器！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 	SetTimer(1, 100, NULL);
+	SetTimer(2, 1000, NULL);
+
+
 
 	CMyPlane::LoadImage();
-
+	CEnemy::LoadImage();
+	CBomb::LoadImage();
 	return 0;
 }
 
@@ -244,13 +325,20 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//	KillTimer(1);
 	//}
 
-	//在新建列表里添加元素
-	if (nChar == VK_RETURN)
-	{
-		MyPlaneList.AddHead(new CMyPlane);
+	//Enter出现敌机
+	//if (nChar == VK_RETURN)
+	//{
+	//	//for(int i=0;;i++)
+	//	EnemyList.AddHead(new CEnemy);
 
-	}
+	//}
 	
+	//空格出现子弹
+	if (nChar == VK_SPACE) {
+		//BombList.AddHead(new CBomb());
+		BombList.AddHead (new CBomb(myplane.GetPoint().x+52, myplane.GetPoint().y-67));
+	}
+
 
 	//if (nChar == VK_UP) {
 	//	myplane.SetVerMotion(-1);
@@ -329,4 +417,13 @@ void CPlaneWarView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 
 	CView::OnKeyUp(nChar, nRepCnt, nFlags);
+}
+
+
+BOOL CPlaneWarView::OnEraseBkgnd(CDC* pDC)
+{
+	
+	return true;
+	//这里一定要用return true，如果用自动生成的，会调用基类，把画出来的覆盖，就什     么结果也没有了
+	//return CView::OnEraseBkgnd(pDC);
 }

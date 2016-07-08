@@ -90,6 +90,10 @@ IDB_background          BITMAP                  "C:\\Users\\林\\Documents\\hansh
 
 IDB_ME                  BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\Hero_Player2.bmp"
 
+IDB_Enemy               BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\enemy1.bmp"
+
+IDB_Bullet              BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\bullet1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

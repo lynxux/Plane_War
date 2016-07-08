@@ -4,6 +4,8 @@
 
 #pragma once
 #include "MyPlane.h"
+#include "Enemy.h"
+#include "Bullet.h"
 
 class CPlaneWarView : public CView
 {
@@ -48,7 +50,11 @@ public:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 	CMyPlane myplane;
-	CObList MyPlaneList;
+	CEnemy enemy;
+	//CBomb bomb(CEnemy);
+	CObList EnemyList;
+	CObList BombList;
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 #ifndef _DEBUG  // PlaneWarView.cpp 中的调试版本
