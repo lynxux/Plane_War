@@ -217,10 +217,12 @@
     <ResourceCompile Include="PlaneWar.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\..\Desktop\PlaneGame-master\res\Hero_Player2.bmp" />
     <Image Include="..\..\..\..\..\Desktop\发给学生的材料\plane\me.bmp" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\bg4.bmp" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\bullet1.bmp" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\enemy1.bmp" />
+    <Image Include="..\..\..\..\hanshukai--planegame\res\enemy2.bmp" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\Hero_Player2.bmp" />
     <Image Include="res\PlaneWar.ico" />
     <Image Include="res\PlaneWarDoc.ico" />

@@ -6,7 +6,7 @@ class CEnemy :public CGameObject
 public:
 	CEnemy(void);
 	~CEnemy(void);
-
+	//static int PositionEnemy;
 	BOOL Draw(CDC* pDC, BOOL bPause);
 
 	static BOOL LoadImage();
@@ -23,8 +23,8 @@ public:
 	//是否可以开火发射子弹
 	BOOL Fired();
 private:
-	static const int ENEMY_HEIGHT = 157;
-	static const int ENEMY_WIDTH = 208;
+	static const int ENEMY_HEIGHT = 47;
+	static const int ENEMY_WIDTH = 60;
 	static CImageList m_Images;
 	int    m_nMotion;//方向 1->向下 0->停止 -1->向上
 					 //图像索引

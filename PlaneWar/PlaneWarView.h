@@ -54,7 +54,8 @@ public:
 	//CBomb bomb(CEnemy);
 	CObList EnemyList;
 	CObList BombList;
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+//	afx_msg void OnPaint();
 };
 
 #ifndef _DEBUG  // PlaneWarView.cpp 中的调试版本

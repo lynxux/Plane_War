@@ -26,7 +26,8 @@ BEGIN_MESSAGE_MAP(CPlaneWarView, CView)
 	ON_WM_CREATE()
 	ON_WM_KEYDOWN()
 	ON_WM_KEYUP()
-	ON_WM_ERASEBKGND()
+//	ON_WM_ERASEBKGND()
+//	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CPlaneWarView 构造/析构
@@ -101,6 +102,15 @@ void CPlaneWarView::OnDraw(CDC* pDC)
 	//imglist.Draw(pDC, 0, pt, ILD_TRANSPARENT);
 	
 	//myplane.Draw(pDC,TRUE);
+
+	//CBitmap bitmap;
+	//bitmap.LoadBitmapW(IDB_ME);//添加的图片
+	//CImageList imglist;
+	//imglist.Create(124, 97, ILC_COLOR32 | ILC_MASK, 1,0);
+	//imglist.Add(&bitmap, RGB(255,255,255));
+	//CPoint pt(100, 100);
+	//imglist.Draw(pDC, 0, pt, ILD_NORMAL);
+	//pDC->TextOutW(30, 100, _T("1111"));
 	
 
 
@@ -148,21 +158,58 @@ CPlaneWarDoc* CPlaneWarView::GetDocument() const // 非调试版本是内联的
 void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	//CDC *pDC = GetDC();
+	//CDC cdc;//内存缓冲CDC
+	//CRect rect;
+	//CBitmap *cacheBitmap = new CBitmap;//内存中承载的临时图像缓冲位图
+	//cdc.CreateCompatibleDC(pDC);//用当前设备CDC初始化缓冲CDC  
+
+	//cacheBitmap->CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+	////绑定pDC和位缓冲图的关系，cdc先输出到位缓冲图中，输出完毕之后再一次性将缓冲位图输出到屏幕
+
+	//CBitmap *pOldBit = cdc.SelectObject(cacheBitmap);
 
 
-	//添加背景图片
+	////添加背景图片
+	////CDC *pDC = GetDC();
+	//CDC dcMem;
+	//dcMem.CreateCompatibleDC(pDC);
+ //   CRect rctClient;
+	//GetClientRect(rctClient);
+	//CBitmap bitmap2;
+	//bitmap2.LoadBitmapW(IDB_background);
+	//CBitmap *pbmpOld = dcMem.SelectObject(&bitmap2);
+	//cdc.StretchBlt(0, 0, rctClient.Width(), rctClient.Height(), &dcMem, 0, 0, 1024, 768, SRCCOPY);
+
+
+
+
+
+	CRect rect;
 	CDC *pDC = GetDC();
-	CDC dcMem;
-	dcMem.CreateCompatibleDC(pDC);
-    CRect rctClient;
-	GetClientRect(rctClient);
-	CBitmap bitmap2;
-	bitmap2.LoadBitmapW(IDB_background);
-	CBitmap *pbmpOld = dcMem.SelectObject(&bitmap2);
-	pDC->StretchBlt(0, 0, rctClient.Width(), rctClient.Height(), &dcMem, 0, 0, 1024, 768, SRCCOPY);
+	CDC cdc;//内存缓冲CDC
+	CBitmap *cacheBitmap = new CBitmap;//内存中承载的临时图像缓冲位图
+	cdc.CreateCompatibleDC(pDC);//用当前设备CDC初始化缓冲CDC  
+
+	cacheBitmap->CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+	//绑定pDC和位缓冲图的关系，cdc先输出到位缓冲图中，输出完毕之后再一次性将缓冲位图输出到屏幕
+
+	CBitmap *pOldBit = cdc.SelectObject(cacheBitmap);
+	//替换cdc原本的缓冲区为缓冲位图，这样cdc输出的内容就写到了缓冲位图中
+	CDC cdc1;
+	cdc1.CreateCompatibleDC(pDC);
+
+	// 背景绘制（初级未完善）
+	CBitmap back;
+	back.LoadBitmapW(IDB_background);
+	CBitmap *old = cdc1.SelectObject(&back);
+	cdc.StretchBlt(0, 0, rect.Width(), rect.Height(), &cdc1, 0, 0, 1024, 768, SRCCOPY);
+	//背景绘制（初级未完善）
 
 
-	myplane.Draw(pDC,TRUE);
+
+
+	myplane.Draw(pDC,true);
 	//enemy.Draw(pDC, TRUE);
 	//bomb.Draw(pDC, TRUE);
 
@@ -187,104 +234,118 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 
 
 
-	//开始遍历  敌机出现
-	//POSITION pos = EnemyList.GetHeadPosition();
-	//POSITION pos2;
-	//while (pos != NULL) {
-	//	pos2 = pos;
-	//	CEnemy *_enemy = (CEnemy *)EnemyList.GetNext(pos);
-	//	if (_enemy->GetPoint().y < 0) {
-	//		EnemyList.RemoveAt(pos2);
-	//		delete(_enemy);
-	//	}
-	//	else {
-	//		_enemy->Draw(pDC, false);
-	//		//碰撞检测
-	//		CRect rect;
-	//		int irect = rect.IntersectRect(_enemy->GetRect(), myplane.GetRect());
-	//		if (irect != 0) {
-	//			pDC->SetBkMode(TRANSPARENT);
-	//			pDC->TextOutW(20, 50, _T("翻车辣"));
-	//		}
-	//	}
-	//}
+//开始遍历  敌机出现
+	POSITION pos = EnemyList.GetHeadPosition();
+	POSITION pos2;
+	while (pos != NULL) {
+		pos2 = pos;
+		CEnemy *_enemy = (CEnemy *)EnemyList.GetNext(pos);
+		if (_enemy->GetPoint().y < 0) {
+			EnemyList.RemoveAt(pos2);
+			delete(_enemy);
+		}
+		else {
+			_enemy->Draw(pDC, false);
+			//碰撞检测
+			CRect rect;
+			int irect = rect.IntersectRect(_enemy->GetRect(), myplane.GetRect());
+			if (irect != 0) {
+				//pDC->SetBkMode(TRANSPARENT);
+				//pDC->TextOutW(20, 50, _T("翻车辣"));
+			}
+		}
+	}
 
 
 	//子弹出现
-	//POSITION bpos = BombList.GetHeadPosition();
-	//POSITION bpos2;
-	//while (bpos != NULL) {
-	//	bpos2 = bpos;
-	//	CBomb *_bomb = (CBomb *)BombList.GetNext(bpos);
-	//	if (_bomb->GetPoint().y < 0) {
-	//		BombList.RemoveAt(bpos2);
-	//		delete(_bomb);
-	//	}
-	//	else {
-	//		_bomb->Draw(pDC, false);
-	//		//CRect rect;
-	//		//int irect = rect.IntersectRect(_bomb->GetRect(), enemy.GetRect());
-	//		//if (irect != 0) {
-	//			//pDC->SetBkMode(TRANSPARENT);
-	//			//pDC->TextOutW(20, 200, _T("爆炸啦啊啊啊啊啊啊啊"));
-	//		//}
-	//	}
-	//}
+	POSITION bpos = BombList.GetHeadPosition();
+	POSITION bpos2;
+	while (bpos != NULL) {
+		bpos2 = bpos;
+		CBomb *_bomb = (CBomb *)BombList.GetNext(bpos);
+		if (_bomb->GetPoint().y < 0) {
+			BombList.RemoveAt(bpos2);
+			delete(_bomb);
+		}
+		else {
+			_bomb->Draw(pDC, false);
+			//CRect rect;
+			//int irect = rect.IntersectRect(_bomb->GetRect(), enemy.GetRect());
+			//if (irect != 0) {
+				//pDC->SetBkMode(TRANSPARENT);
+				//pDC->TextOutW(20, 200, _T("爆炸啦啊啊啊啊啊啊啊"));
+			//}
+		}
+	}
+
 
 
 
 	CView::OnTimer(nIDEvent);
-	switch(nIDEvent)
-	{
-	case 1: 
-	{
-		POSITION bpos = BombList.GetHeadPosition();
-		POSITION bpos2;
-		while (bpos != NULL) {
-			bpos2 = bpos;
-			CBomb *_bomb = (CBomb *)BombList.GetNext(bpos);
-			if (_bomb->GetPoint().y < 0) {
-				BombList.RemoveAt(bpos2);
-				delete(_bomb);
-			}
-			else {
-				_bomb->Draw(pDC, false);
-				//CRect rect;
-				//int irect = rect.IntersectRect(_bomb->GetRect(), enemy.GetRect());
-				//if (irect != 0) {
-				//pDC->SetBkMode(TRANSPARENT);
-				//pDC->TextOutW(20, 200, _T("爆炸啦啊啊啊啊啊啊啊"));
-				//}
-			}
-		}
-	  }
-	  break;
-	case 2: 
-	{
-		EnemyList.AddHead(new CEnemy);
-		POSITION pos = EnemyList.GetHeadPosition();
-		POSITION pos2;
-		while (pos != NULL) {
-			pos2 = pos;
-			CEnemy *_enemy = (CEnemy *)EnemyList.GetNext(pos);
-			if (_enemy->GetPoint().y < 0) {
-				EnemyList.RemoveAt(pos2);
-				delete(_enemy);
-			}
-			else {
-				_enemy->Draw(pDC, false);
-				//碰撞检测
-				CRect rect;
-				int irect = rect.IntersectRect(_enemy->GetRect(), myplane.GetRect());
-				if (irect != 0) {
-					pDC->SetBkMode(TRANSPARENT);
-					pDC->TextOutW(20, 50, _T("翻车辣"));
-				}
-			}
-		}
-	  }
-	  break;
-	}
+	//switch(nIDEvent)
+	//{
+	//case 1: 
+	//{
+	//	POSITION bpos = BombList.GetHeadPosition();
+	//	POSITION bpos2;
+	//	while (bpos != NULL) {
+	//		bpos2 = bpos;
+	//		CBomb *_bomb = (CBomb *)BombList.GetNext(bpos);
+	//		if (_bomb->GetPoint().y < 0) {
+	//			BombList.RemoveAt(bpos2);
+	//			delete(_bomb);
+	//		}
+	//		else {
+	//			_bomb->Draw(pDC, false);
+	//			//CRect rect;
+	//			//int irect = rect.IntersectRect(_bomb->GetRect(), enemy.GetRect());
+	//			//if (irect != 0) {
+	//			//pDC->SetBkMode(TRANSPARENT);
+	//			//pDC->TextOutW(20, 200, _T("爆炸啦啊啊啊啊啊啊啊"));
+	//			//}
+	//		}
+	//	}
+	//  }
+	//  break;
+	//case 2: 
+	//{
+	//	EnemyList.AddHead(new CEnemy);
+
+	//	//for (int i = 0; i < 2; i++)
+	//		//EnemyList.AddHead(new CEnemy);
+	//	//PositionEnemy += 10;
+	//	POSITION pos = EnemyList.GetHeadPosition();
+	//	POSITION pos2;
+	//	while (pos != NULL) {
+	//		pos2 = pos;
+	//		CEnemy *_enemy = (CEnemy *)EnemyList.GetNext(pos);
+	//		if (_enemy->GetPoint().y < 0) {
+	//			EnemyList.RemoveAt(pos2);
+	//			delete(_enemy);
+	//		}
+	//		else {
+	//			_enemy->Draw(pDC, false);
+	//			//碰撞检测
+	//			CRect rect;
+	//			int irect = rect.IntersectRect(_enemy->GetRect(), myplane.GetRect());
+	//			if (irect != 0) {
+	//				pDC->SetBkMode(TRANSPARENT);
+	//				pDC->TextOutW(20, 50, _T("翻车辣"));
+	//			}
+	//		}
+	//	}
+	//  }
+	//  break;
+	//}
+
+	//将二级缓冲cdc中的数据推送到一级级缓冲pDC中，即输出到屏幕中
+	pDC->BitBlt(0, 0, rect.Width(), rect.Height(), &cdc, 0, 0, SRCCOPY);
+	//释放二级cdc
+	cdc.DeleteDC();
+	//释放缓冲位图
+	cacheBitmap->DeleteObject();
+	//释放一级pDC
+	ReleaseDC(pDC);
 
 }
 
@@ -296,9 +357,10 @@ int CPlaneWarView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// TODO:  在此添加您专用的创建代码
 
+
 	//添加定时器！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 	SetTimer(1, 100, NULL);
-	SetTimer(2, 1000, NULL);
+	//SetTimer(2, 3000, NULL);
 
 
 
@@ -326,29 +388,29 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//}
 
 	//Enter出现敌机
-	//if (nChar == VK_RETURN)
-	//{
-	//	//for(int i=0;;i++)
-	//	EnemyList.AddHead(new CEnemy);
+	if (nChar == VK_RETURN)
+	{
+		//for(int i=0;;i++)
+		//int n = rand() % 100;
+		for(int i=0;i<=5;i++)
+		EnemyList.AddHead(new CEnemy);
 
-	//}
+	}
 	
 	//空格出现子弹
 	if (nChar == VK_SPACE) {
 		//BombList.AddHead(new CBomb());
-		BombList.AddHead (new CBomb(myplane.GetPoint().x+52, myplane.GetPoint().y-67));
+		BombList.AddHead (new CBomb(myplane.GetPoint().x+52, myplane.GetPoint().y-57));
 	}
 
 
 	//if (nChar == VK_UP) {
 	//	myplane.SetVerMotion(-1);
 	//	myplane.SetHorMotion(0);
-
 	//}
 	//if (nChar == VK_DOWN) {
 	//	myplane.SetVerMotion(1);
 	//    myplane.SetHorMotion(0);
-
 	//}
 	//if (nChar == VK_LEFT) {
 	//	myplane.SetHorMotion(-1);
@@ -358,12 +420,6 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//	myplane.SetHorMotion(1);
 	//	//myplane.SetVerMotion(0);
 	//}
-
-
-
-
-
-
 
 	/*if (nChar == VK_LEFT) {
 		j-=12;
@@ -377,7 +433,6 @@ void CPlaneWarView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	else if (nChar == VK_DOWN) {
 		k+=12;
     }*/
-
 
     //ReleaseDC(pDC);
 
@@ -420,10 +475,4 @@ void CPlaneWarView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 }
 
 
-BOOL CPlaneWarView::OnEraseBkgnd(CDC* pDC)
-{
-	
-	return true;
-	//这里一定要用return true，如果用自动生成的，会调用基类，把画出来的覆盖，就什     么结果也没有了
-	//return CView::OnEraseBkgnd(pDC);
-}
+

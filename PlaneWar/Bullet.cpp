@@ -16,7 +16,7 @@ CBomb::~CBomb()
 }
 
 BOOL CBomb::Draw(CDC* pDC, BOOL bPause) {
-	m_ptPos.y -= 20;
+	m_ptPos.y -= 30;
 
 	CString s;
 	s.Format(_T("ÏÖÔÚ×ø±ê£¨%d,%d£©"), m_ptPos.x, m_ptPos.y);
@@ -25,7 +25,7 @@ BOOL CBomb::Draw(CDC* pDC, BOOL bPause) {
 }
 
 BOOL CBomb::LoadImage() {
-	return CGameObject::LoadImage(m_Images, 317, RGB(1, 1, 1), BOMB_WIDTH, BOMB_HEIGHT, 0);
+	return CGameObject::LoadImage(m_Images, 317, RGB(238, 243, 250), BOMB_WIDTH, BOMB_HEIGHT, 1);
 }
 
 
