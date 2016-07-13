@@ -86,13 +86,17 @@ IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 
 IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
 
-IDB_background          BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\bg4.bmp"
+IDB_ME                  BITMAP                  "res\\Hero_Player2.bmp"
 
-IDB_Bullet              BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\bullet1.bmp"
+IDB_explo               BITMAP                  "res\\e_Little.BMP"
 
-IDB_ME                  BITMAP                  "C:\\Users\\林\\Desktop\\PlaneGame-master\\res\\Hero_Player2.bmp"
+IDB_Enemy               BITMAP                  "res\\enemy3.bmp"
 
-IDB_Enemy               BITMAP                  "C:\\Users\\林\\Documents\\hanshukai--planegame\\res\\enemy2.bmp"
+IDB_EBullet             BITMAP                  "res\\敌机子弹03.bmp"
+
+IDB_Bullet              BITMAP                  "res\\bullet1.bmp"
+
+IDB_background          BITMAP                  "res\\bg2.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

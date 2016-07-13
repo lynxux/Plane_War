@@ -3,11 +3,11 @@
 
 
 
-CBomb::CBomb(int x,int y)
+CBomb::CBomb(int x,int y,int z)
 {
-	m_ptPos.x = x;
-	m_ptPos.y = y;
-
+	CBomb::m_ptPos.x = x;
+	CBomb::m_ptPos.y = y;
+	num = z;
 }
 
 
@@ -16,16 +16,16 @@ CBomb::~CBomb()
 }
 
 BOOL CBomb::Draw(CDC* pDC, BOOL bPause) {
-	m_ptPos.y -= 30;
-
-	CString s;
-	s.Format(_T("现在坐标（%d,%d）"), m_ptPos.x, m_ptPos.y);
-	pDC->TextOutW(150, 150, s);
-	return m_Images.Draw(pDC, 0, m_ptPos, ILD_NORMAL);
+	CBomb::m_ptPos.y -= 7;
+	//num++;
+	//CString s;
+	//s.Format(_T("现在坐标（%d,%d,%d）"), CBomb::m_ptPos.x, CBomb::m_ptPos.y,num);
+	//pDC->TextOutW(CBomb::m_ptPos.x, CBomb::m_ptPos.y+20, s);
+	return m_Images.Draw(pDC, 0, CBomb::m_ptPos, ILD_NORMAL);
 }
 
 BOOL CBomb::LoadImage() {
-	return CGameObject::LoadImage(m_Images, 317, RGB(238, 243, 250), BOMB_WIDTH, BOMB_HEIGHT, 1);
+	return CGameObject::LoadImage(m_Images, IDB_Bullet, RGB(255, 255, 255), BOMB_WIDTH, BOMB_HEIGHT, 1);
 }
 
 

@@ -29,17 +29,19 @@
 #define ID_VIEW_APPLOOK_WINDOWS_7       219
 #define IDS_EDIT_MENU                   306
 #define IDB_BITMAP1                     310
-#define IDB_background                  311
-#define IDB_Bullet                      317
-#define IDB_ME                          318
-#define IDB_BITMAP2                     319
-#define IDB_Enemy                       319
+#define IDB_ME                          326
+#define IDB_explo                       327
+#define IDB_Enemy                       328
+#define IDB_EBullet                     329
+#define IDB_Bullet                      330
+#define IDB_BITMAP2                     331
+#define IDB_background                  331
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        320
+#define _APS_NEXT_RESOURCE_VALUE        332
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310

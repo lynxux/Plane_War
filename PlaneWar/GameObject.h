@@ -15,10 +15,10 @@ public:
 	virtual CRect GetRect()=0;
 
 	//获得左上角坐标
-	CPoint GetPoint()
-	{
+	virtual CPoint GetPoint() {
 		return m_ptPos;
 	}
+
 	CPoint SetPoint(int x,int y) {
 		m_ptPos.y = y;
 		m_ptPos.x = x;
@@ -32,7 +32,9 @@ protected:
 protected:
 	//物体的位置
 	CPoint  m_ptPos;
-	//CPoint m_bomb;
+	//CPoint  m_bullet;
+	//CPoint  m_enemy;
+	//CPoint  m_ebullet;
 };
 
 

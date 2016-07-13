@@ -21,18 +21,18 @@ BOOL CMyPlane::Draw(CDC *pDC,BOOL bPause) {
 	
 
 
-    m_ptPos.x += m_nHorMotion * 30;
-	m_ptPos.y += m_nVerMotion * 30;
+    CMyPlane::m_ptPos.x += m_nHorMotion * 6;
+	CMyPlane::m_ptPos.y += m_nVerMotion * 6;
 	CString s;
-	s.Format(_T("现在坐标（%d,%d）"), m_ptPos.x, m_ptPos.y);
+	s.Format(_T("现在坐标（%d,%d）"), CMyPlane::m_ptPos.x, CMyPlane::m_ptPos.y);
 	//s.Format(_T("现在坐标（%d,%d）"), m_nHorMotion, m_nVerMotion);
 	//pDC->SetBkMode(TRANSPARENT);
 	pDC->TextOutW(20, 20, s);
-	return m_Images.Draw(pDC, 0, m_ptPos, ILD_NORMAL);
+	return m_Images.Draw(pDC, 0, CMyPlane::m_ptPos, ILD_NORMAL);
 }
 
 BOOL CMyPlane::LoadImage() {
-	return CGameObject::LoadImage(m_Images, 318, RGB(255,255,255), PLANE_WIDTH, PLANE_HEIGHT, 1);
+	return CGameObject::LoadImage(m_Images, IDB_ME, RGB(255,255,255), PLANE_WIDTH, PLANE_HEIGHT, 1);
 }
 
 BOOL CMyPlane::Fired() {

@@ -6,6 +6,8 @@
 #include "MyPlane.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "Ball.h"
+#include "Explosion.h"
 
 class CPlaneWarView : public CView
 {
@@ -22,6 +24,7 @@ public:
 	int i;
 	int j;
 	int k;
+
 // 重写
 public:
 	virtual void OnDraw(CDC* pDC);  // 重写以绘制该视图
@@ -51,11 +54,14 @@ public:
 	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 	CMyPlane myplane;
 	CEnemy enemy;
-	//CBomb bomb(CEnemy);
 	CObList EnemyList;
 	CObList BombList;
+	CObList BallList;
+	CObList ExploList;
 //	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 //	afx_msg void OnPaint();
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 #ifndef _DEBUG  // PlaneWarView.cpp 中的调试版本

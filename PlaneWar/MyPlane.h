@@ -31,6 +31,7 @@ public:
 		return m_nVerMotion;
 	}
 
+
 	CRect GetRect()
 	{
 		return CRect(m_ptPos, CPoint(m_ptPos.x + PLANE_WIDTH, m_ptPos.y + PLANE_HEIGHT));
