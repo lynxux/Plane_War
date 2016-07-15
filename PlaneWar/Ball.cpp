@@ -16,7 +16,7 @@ CBall::~CBall()
 }
 
 BOOL CBall::Draw(CDC* pDC, BOOL bPause) {
-	CBall::m_ptPos.y += 7;
+	CBall::m_ptPos.y += 6;
 
 
 	return m_Images.Draw(pDC, 0, CBall::m_ptPos, ILD_NORMAL);

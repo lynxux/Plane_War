@@ -186,9 +186,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Ball_litlle.h" />
+    <ClInclude Include="Boss1.h" />
+    <ClInclude Include="Boss1Bullet1.h" />
+    <ClInclude Include="Boss1Bullet2.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Bullet1.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy_little.h" />
     <ClInclude Include="Explosion.h" />
+    <ClInclude Include="Expl_big.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyPlane.h" />
@@ -201,9 +208,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Ball_litlle.cpp" />
+    <ClCompile Include="Boss1.cpp" />
+    <ClCompile Include="Boss1Bullet1.cpp" />
+    <ClCompile Include="Boss1Bullet2.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Bullet1.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy_little.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="Expl_big.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyPlane.cpp" />
@@ -234,16 +248,32 @@
     <Image Include="..\..\..\..\hanshukai--planegame\res\e_Little.BMP" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\Hero_Player2.bmp" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\敌机子弹03.bmp" />
+    <Image Include="res\bg1.bmp" />
     <Image Include="res\bg2.bmp" />
+    <Image Include="res\bg4.bmp" />
+    <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\BOOSK子弹.bmp" />
+    <Image Include="res\BOSS3.bmp" />
+    <Image Include="res\BOSS子弹.bmp" />
+    <Image Include="res\BOSS子弹.png" />
     <Image Include="res\bullet1.bmp" />
+    <Image Include="res\enemy2.bmp" />
     <Image Include="res\enemy3.bmp" />
+    <Image Include="res\e_Big.bmp" />
     <Image Include="res\e_Little.BMP" />
+    <Image Include="res\e_Mid.BMP" />
+    <Image Include="res\hero1-1.bmp" />
     <Image Include="res\Hero_Player2.bmp" />
+    <Image Include="res\MyGame.ico" />
     <Image Include="res\PlaneWar.ico" />
     <Image Include="res\PlaneWarDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
+    <Image Include="res\子弹00.BMP" />
+    <Image Include="res\微型敌机01.bmp" />
     <Image Include="res\敌机子弹03.bmp" />
+    <Image Include="res\沙漠背景.bmp" />
+    <Image Include="res\闪电子弹.bmp" />
     <Image Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>

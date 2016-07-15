@@ -76,6 +76,8 @@ IDR_MAINFRAME           ICON                    "res\\PlaneWar.ico"
 
 IDR_PlaneWarTYPE        ICON                    "res\\PlaneWarDoc.ico"
 
+IDI_ICON1               ICON                    "res\\MyGame.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -86,8 +88,6 @@ IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 
 IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
 
-IDB_ME                  BITMAP                  "res\\Hero_Player2.bmp"
-
 IDB_explo               BITMAP                  "res\\e_Little.BMP"
 
 IDB_Enemy               BITMAP                  "res\\enemy3.bmp"
@@ -96,7 +96,23 @@ IDB_EBullet             BITMAP                  "res\\敌机子弹03.bmp"
 
 IDB_Bullet              BITMAP                  "res\\bullet1.bmp"
 
-IDB_background          BITMAP                  "res\\bg2.bmp"
+IDB_Enemy_little        BITMAP                  "res\\enemy2.bmp"
+
+IDB_Enemy_ball_little   BITMAP                  "res\\子弹00.BMP"
+
+IDB_Boss1               BITMAP                  "res\\BOSS3.bmp"
+
+IDB_BossBullet1         BITMAP                  "res\\BOSS子弹.bmp"
+
+IDB_BossBullet2         BITMAP                  "res\\微型敌机01.bmp"
+
+IDB_background          BITMAP                  "res\\bg4.bmp"
+
+IDB_ME                  BITMAP                  "res\\hero1-1.bmp"
+
+IDB_Bullet1             BITMAP                  "res\\闪电子弹.bmp"
+
+IDB_Expl_big            BITMAP                  "res\\e_Mid.BMP"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -286,6 +302,14 @@ BEGIN
     END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG1                PNG                     "C:\\Users\\林\\Documents\\Visual Studio 2015\\Projects\\PlaneWar\\PlaneWar\\res\\BOSS子弹.png"
 
 
 /////////////////////////////////////////////////////////////////////////////

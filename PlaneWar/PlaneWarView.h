@@ -8,6 +8,13 @@
 #include "Bullet.h"
 #include "Ball.h"
 #include "Explosion.h"
+#include "Enemy_little.h"
+#include "Ball_litlle.h"
+#include "Boss1.h"
+#include "Boss1Bullet1.h"
+#include "Boss1Bullet2.h"
+#include "Bullet1.h"
+#include "Expl_big.h"
 
 class CPlaneWarView : public CView
 {
@@ -24,7 +31,7 @@ public:
 	int i;
 	int j;
 	int k;
-
+	int bgsp;
 // 重写
 public:
 	virtual void OnDraw(CDC* pDC);  // 重写以绘制该视图
@@ -52,12 +59,19 @@ public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
-	CMyPlane myplane;
-	CEnemy enemy;
+	CMyPlane *myplane=new CMyPlane;
+	//CBoss1 *boss1 = new CBoss1;
+	//CEnemy enemy;
 	CObList EnemyList;
 	CObList BombList;
 	CObList BallList;
 	CObList ExploList;
+	CObList Enemy_little_List;
+	CObList Enemy_ball_little;
+	CObList BossBullet1List;
+	CObList BossBullet2List;
+	CObList Bomb1List;
+	CObList Expl_bigList;
 //	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 //	afx_msg void OnPaint();
 //	afx_msg BOOL OnEraseBkgnd(CDC* pDC);

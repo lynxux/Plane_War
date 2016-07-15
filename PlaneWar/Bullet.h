@@ -6,7 +6,7 @@ class CBomb :
 {
 public:
 	//CBomb();
-	CBomb(int x, int y,int z);
+	CBomb(int x, int y);
 	~CBomb(void);
 
 	BOOL Draw(CDC* pDC, BOOL bPause);
@@ -22,6 +22,5 @@ private:
 	static const int BOMB_HEIGHT = 64;
 	static const int BOMB_WIDTH = 27;
 	static CImageList m_Images;
-	int num;
 };
 

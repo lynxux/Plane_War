@@ -57,6 +57,27 @@
     <ClInclude Include="Explosion.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy_little.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball_litlle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1Bullet1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1Bullet2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Expl_big.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlaneWar.cpp">
@@ -90,6 +111,27 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy_little.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball_litlle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1Bullet1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1Bullet2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Expl_big.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,6 +211,54 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\bg2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\MyGame.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\enemy2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\子弹00.BMP">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\BOSS3.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\BOSS子弹.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\BOSS子弹.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\BOOSK子弹.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bg1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\微型敌机01.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\沙漠背景.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bg4.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\hero1-1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\闪电子弹.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\e_Big.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\e_Mid.BMP">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

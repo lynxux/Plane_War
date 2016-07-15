@@ -14,7 +14,7 @@ public:
 
 	CRect GetRect()
 	{
-		return CRect(m_ptPos, CPoint(m_ptPos.x + BALL_HEIGHT, m_ptPos.y + BALL_HEIGHT));
+		return CRect(m_ptPos, CPoint(m_ptPos.x + BALL_WIDTH, m_ptPos.y + BALL_HEIGHT));
 	}
 private:
 	static const int BALL_HEIGHT = 40;

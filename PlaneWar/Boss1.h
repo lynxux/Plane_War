@@ -1,12 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include "resource.h"
-class CEnemy :public CGameObject
+class CBoss1 :public CGameObject
 {
 public:
-	CEnemy();
-	CEnemy(int x);
-	~CEnemy(void);
+	CBoss1();
+	CBoss1(int x);
+	~CBoss1(void);
 	//static int PositionEnemy;
 	BOOL Draw(CDC* pDC, BOOL bPause);
 
@@ -14,7 +14,7 @@ public:
 
 	CRect GetRect()
 	{
-		return CRect(m_ptPos, CPoint(m_ptPos.x + ENEMY_WIDTH, m_ptPos.y + ENEMY_HEIGHT));
+		return CRect(m_ptPos, CPoint(m_ptPos.x + Boss1_WIDTH, m_ptPos.y + Boss1_HEIGHT));
 	}
 
 	int GetMontion() const
@@ -23,28 +23,30 @@ public:
 	}
 	//获取血量
 	int getblood() {
-		return eblood;
+		return blood1;
 	}
 	//减少血量
 	int setblood(int x) {
-		eblood += x;
-		return eblood;
+		blood1 += x;
+		return blood1;
 	}
+
 
 	//是否可以开火发射子弹
 	BOOL Fired();
-	//统计被打死的数目
-	static int died_num;
+	//看是否越界
+	static int poi;
 private:
-	static const int ENEMY_HEIGHT = 85;
-	static const int ENEMY_WIDTH = 110;
+	static const int Boss1_HEIGHT = 231;
+	static const int Boss1_WIDTH = 400;
 	static CImageList m_Images;
 	int    m_nMotion;//方向 1->向下 0->停止 -1->向上
-	//图像索引
+					 //图像索引
 	int m_nImgIndex;
 	//速度
 	int m_V;
 	int    m_nWait;//发射延时
-	int eblood;
-	
+	int blood1;
+
 };
+

@@ -31,6 +31,15 @@ public:
 		return m_nVerMotion;
 	}
 
+	//获取血量
+	int getblood() {
+		return blood;
+	}
+	//减少血量
+	int setblood(int x) {
+		blood += x;
+		return blood;
+	}
 
 	CRect GetRect()
 	{
@@ -49,6 +58,7 @@ private:
 	int    m_nHorMotion;//飞机水平运行方向0->静止，1->右 -1->左
 	int    m_nVerMotion;//飞机垂直运行方向0->静止，1->上 -1->下
 	int    m_nWait;//发射延时
+	int blood;
 };
 
 

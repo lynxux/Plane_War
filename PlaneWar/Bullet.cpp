@@ -3,11 +3,10 @@
 
 
 
-CBomb::CBomb(int x,int y,int z)
+CBomb::CBomb(int x,int y)
 {
 	CBomb::m_ptPos.x = x;
 	CBomb::m_ptPos.y = y;
-	num = z;
 }
 
 
