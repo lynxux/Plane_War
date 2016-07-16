@@ -191,6 +191,7 @@
     <ClInclude Include="Boss1Bullet1.h" />
     <ClInclude Include="Boss1Bullet2.h" />
     <ClInclude Include="Boss2.h" />
+    <ClInclude Include="Boss3.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Bullet1.h" />
     <ClInclude Include="Enemy.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Boss1Bullet1.cpp" />
     <ClCompile Include="Boss1Bullet2.cpp" />
     <ClCompile Include="Boss2.cpp" />
+    <ClCompile Include="Boss3.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Bullet1.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -250,6 +252,7 @@
     <Image Include="..\..\..\..\hanshukai--planegame\res\e_Little.BMP" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\Hero_Player2.bmp" />
     <Image Include="..\..\..\..\hanshukai--planegame\res\敌机子弹03.bmp" />
+    <Image Include="res\bg0.bmp" />
     <Image Include="res\bg1.bmp" />
     <Image Include="res\bg2.bmp" />
     <Image Include="res\bg4.bmp" />
@@ -272,6 +275,7 @@
     <Image Include="res\PlaneWarDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
+    <Image Include="res\合体BOSSX.bmp" />
     <Image Include="res\子弹00.BMP" />
     <Image Include="res\微型敌机01.bmp" />
     <Image Include="res\敌机子弹03.bmp" />

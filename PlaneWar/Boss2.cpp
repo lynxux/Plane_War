@@ -9,7 +9,7 @@ CBoss2::CBoss2() {
 	m_nWait = 0;
 	CBoss2::m_ptPos.x = 0;
 	CBoss2::m_ptPos.y = 0;
-	CBoss2::blood1 = 800;
+	CBoss2::blood1 = 1100;
 }
 
 CBoss2::CBoss2(int x)
@@ -21,7 +21,7 @@ CBoss2::CBoss2(int x)
 	m_nWait = 0;
 	CBoss2::m_ptPos.x = rand() % 1800 + x + 0;
 	CBoss2::m_ptPos.y = 0;
-	CBoss2::blood1 = 1000;
+	CBoss2::blood1 = 1100;
 
 }
 

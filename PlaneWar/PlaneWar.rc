@@ -120,6 +120,10 @@ IDB_background3         BITMAP                  "res\\bg2.bmp"
 
 IDB_Boss2               BITMAP                  "res\\BOSS2.bmp"
 
+IDB_Boss3               BITMAP                  "res\\∫œÃÂBOSSX.bmp"
+
+IDB_background4         BITMAP                  "res\\bg0.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

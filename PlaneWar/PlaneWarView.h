@@ -15,6 +15,7 @@
 #include "Bullet1.h"
 #include "Expl_big.h"
 #include "Boss2.h"
+#include "Boss3.h"
 
 class CPlaneWarView : public CView
 {
@@ -64,6 +65,7 @@ public:
 	CMyPlane *myplane = new CMyPlane;
 	CBoss1 *boss1 = new CBoss1;
 	CBoss2 *boss2 = new CBoss2;
+	CBoss3 *boss3 = new CBoss3;
 	//CEnemy enemy;
 	CObList EnemyList;
 	CObList BombList;

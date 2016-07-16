@@ -144,6 +144,23 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 		bgsp += 10;
 		cdc.StretchBlt(0, 0, rect.Width(), rect.Height(), &cdc1, 0, 0, 1024, 768, SRCCOPY);
 	}
+	else if (boss1 == NULL&&boss2 == NULL &&boss3 != NULL) {
+		//背景绘制3
+		CBitmap back;
+		back.LoadBitmapW(IDB_background3);
+		CBitmap *old = cdc1.SelectObject(&back);
+		bgsp += 10;
+		cdc.StretchBlt(0, 0, rect.Width(), rect.Height(), &cdc1, 0, 0, 1024, 768, SRCCOPY);
+	}
+	else if (boss1 == NULL&&boss2 == NULL &&boss3 == NULL) {
+		//背景绘制4
+		CBitmap back;
+		back.LoadBitmapW(IDB_background4);
+		CBitmap *old = cdc1.SelectObject(&back);
+		bgsp += 10;
+		cdc.StretchBlt(0, 0, rect.Width(), rect.Height(), &cdc1, 0, 0, 1024, 768, SRCCOPY);
+	}
+
 
 
 
@@ -196,7 +213,7 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 		CFont font;
 		font.CreateFont(100, 100, 0, 0, 700, TRUE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_MODERN, _T("Courier New"));
 		cdc.SelectObject(&font);
-		cdc.SetTextColor(RGB(255,9,0));
+		cdc.SetTextColor(RGB(26, 230, 138));
 		cdc.SetBkMode(TRANSPARENT);
 		cdc.TextOutW(700, 200, _T("K.O.！"));
 		cdc.TextOutW(500, 350, _T("YOU DIED！"));
@@ -204,9 +221,9 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 	//游戏积分显示
 	if (myplane != NULL) {
 		CFont font;
-		font.CreateFont(15, 15, 0, 0, 700, TRUE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_MODERN, _T("Courier New"));
+		font.CreateFont(16, 16, 0, 0, 700, TRUE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_MODERN, _T("Courier New"));
 		cdc.SelectObject(&font);
-		cdc.SetTextColor(RGB(255, 255, 0));
+		cdc.SetTextColor(RGB(26, 230, 138));
 		cdc.SetBkMode(TRANSPARENT);
 		//cdc.TextOutW(10, 30, _T("当前积分："));
 		CString s;
@@ -262,7 +279,7 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 
 	//绘制敌机
 	//boss1出现，普通敌机数量减少
-	if (myplane != NULL) {
+	if (myplane != NULL&&boss3!=NULL) {
 		if (nIDEvent == 4 && CEnemy::died_num < 40) {
 			EnemyList.AddTail(new CEnemy(0));
 		}
@@ -291,7 +308,7 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	//绘制小敌机
-	if (myplane != NULL) {
+	if (myplane != NULL&&boss3 != NULL) {
 		if (nIDEvent == 5 && CEnemy::died_num < 40) {
 			Enemy_little_List.AddTail(new CEnemy_little);
 			Enemy_little_List.AddTail(new CEnemy_little);
@@ -305,6 +322,12 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 			Enemy_little_List.AddTail(new CEnemy_little);
 		}
 		else if (nIDEvent == 3 && CEnemy::died_num > 40 && boss1 == NULL&&boss2 != NULL) {
+			Enemy_little_List.AddTail(new CEnemy_little);
+			Enemy_little_List.AddTail(new CEnemy_little);
+			Enemy_little_List.AddTail(new CEnemy_little);
+		}
+		else if (nIDEvent == 3 && CEnemy::died_num > 40 && boss1 == NULL&&boss2 == NULL&&boss3!=NULL) {
+			Enemy_little_List.AddTail(new CEnemy_little);
 			Enemy_little_List.AddTail(new CEnemy_little);
 			Enemy_little_List.AddTail(new CEnemy_little);
 			Enemy_little_List.AddTail(new CEnemy_little);
@@ -368,6 +391,25 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 			CBoss2::poi = 0;
 	}
 
+	//绘制boss3
+	if (boss1 == NULL&&boss2 == NULL && boss3!=NULL) {
+		if (CEnemy::died_num > 10) {
+			boss3->Draw(&cdc, false);
+			if (nIDEvent == 7) {
+				BossBullet1List.AddTail(new CBoss1Bullet1(boss3->GetPoint().x + 200, boss3->GetPoint().y + 231, 2));
+				BossBullet1List.AddTail(new CBoss1Bullet1(boss3->GetPoint().x + 133, boss3->GetPoint().y + 111, 1));
+				BossBullet1List.AddTail(new CBoss1Bullet1(boss3->GetPoint().x + 266, boss3->GetPoint().y + 111, -1));
+			}
+			else if (nIDEvent == 8) {
+				BossBullet2List.AddTail(new CBoss1Bullet2(boss3->GetPoint().x + 200, boss3->GetPoint().y + 231));
+			}
+		}
+		if (boss3->GetPoint().x + 500 > rect.Width())
+			CBoss3::poi = 1;
+		else if (boss3->GetPoint().x < 0)
+			CBoss3::poi = 0;
+	}
+
 	//绘制boss1的子弹1
 	if (boss1 != NULL) {
 		POSITION BossBullet1pos = BossBullet1List.GetHeadPosition();
@@ -400,6 +442,21 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 		}
 	}
 
+	//绘制boss3的子弹1
+	if (boss1 == NULL&&boss2 == NULL &&boss3 != NULL) {
+		POSITION BossBullet1pos = BossBullet1List.GetHeadPosition();
+		POSITION BossBullet1pos2;
+		while (BossBullet1pos != NULL) {
+			BossBullet1pos2 = BossBullet1pos;
+			CBoss1Bullet1 *_BossBullet1 = (CBoss1Bullet1 *)BossBullet1List.GetNext(BossBullet1pos);
+			if (_BossBullet1->GetPoint().y > rect.Height()) {
+				BossBullet1List.RemoveAt(BossBullet1pos2);
+				delete(_BossBullet1);
+			}
+			else
+				_BossBullet1->Draw(&cdc, false);
+		}
+	}
 
 	//绘制boss1的子弹2
 	if (boss1 != NULL) {
@@ -431,7 +488,22 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 			else
 				_BossBullet2->Draw(&cdc, false);
 		}
+	}
 
+	//绘制boss3的子弹2
+	if (boss1 == NULL && boss3 != NULL&& boss2 ==NULL) {
+		POSITION BossBullet2pos = BossBullet2List.GetHeadPosition();
+		POSITION BossBullet2pos2;
+		while (BossBullet2pos != NULL) {
+			BossBullet2pos2 = BossBullet2pos;
+			CBoss1Bullet2 *_BossBullet2 = (CBoss1Bullet2 *)BossBullet2List.GetNext(BossBullet2pos);
+			if (_BossBullet2->GetPoint().y > rect.Height()) {
+				BossBullet2List.RemoveAt(BossBullet2pos2);
+				delete(_BossBullet2);
+			}
+			else
+				_BossBullet2->Draw(&cdc, false);
+		}
 	}
 
 
@@ -617,13 +689,13 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 				accupt += 10;
 				boss1->setblood(-10);
 				//爆炸效果
-				Expl_bigList.AddTail(new CExpl_big(boss1->GetPoint().x + 200, boss1->GetPoint().y + 70));
-				Expl_bigList.AddTail(new CExpl_big(boss1->GetPoint().x + 170, boss1->GetPoint().y + 100));
-				Expl_bigList.AddTail(new CExpl_big(boss1->GetPoint().x + 140, boss1->GetPoint().y + 70));
-				Expl_bigList.AddTail(new CExpl_big(boss1->GetPoint().x + 140, boss1->GetPoint().y + 120));
-				Expl_bigList.AddTail(new CExpl_big(boss1->GetPoint().x + 200, boss1->GetPoint().y + 120));
-				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 120, boss1->GetPoint().y + 70));
-				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 200, boss1->GetPoint().y + 70));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 2, _myb1pos->GetPoint().y -60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 3, _myb1pos->GetPoint().y - 65));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 4, _myb1pos->GetPoint().y -60 ));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x -1, _myb1pos->GetPoint().y -65));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x  -3, _myb1pos->GetPoint().y -78));
+				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 3, boss1->GetPoint().y - 70));
+				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 2, boss1->GetPoint().y - 70));
 				BombList.RemoveAt(myb1pos2);
 				delete(_myb1pos);
 				if (boss1->getblood() < 0) {
@@ -651,13 +723,13 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 				accupt += 10;
 				boss2->setblood(-10);
 				//爆炸效果
-				Expl_bigList.AddTail(new CExpl_big(boss2->GetPoint().x + 200, boss2->GetPoint().y + 70));
-				Expl_bigList.AddTail(new CExpl_big(boss2->GetPoint().x + 170, boss2->GetPoint().y + 100));
-				Expl_bigList.AddTail(new CExpl_big(boss2->GetPoint().x + 140, boss2->GetPoint().y + 70));
-				Expl_bigList.AddTail(new CExpl_big(boss2->GetPoint().x + 140, boss2->GetPoint().y + 120));
-				Expl_bigList.AddTail(new CExpl_big(boss2->GetPoint().x + 200, boss2->GetPoint().y + 120));
-				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 120, boss2->GetPoint().y + 70));
-				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 200, boss2->GetPoint().y + 70));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 2, _myb1pos->GetPoint().y - 60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 3, _myb1pos->GetPoint().y - 65));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 4, _myb1pos->GetPoint().y - 60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x - 1, _myb1pos->GetPoint().y - 65));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x - 3, _myb1pos->GetPoint().y - 78));
+				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 3, boss2->GetPoint().y - 70));
+				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 2, boss2->GetPoint().y - 70));
 				BombList.RemoveAt(myb1pos2);
 				delete(_myb1pos);
 				if (boss2->getblood() < 0) {
@@ -671,6 +743,40 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 	}
+	//我的子弹J打到boss3
+	if (myplane != NULL&&boss1 == NULL && boss2 == NULL && boss3 !=NULL&&CEnemy::died_num>10) {
+		POSITION myb1pos = BombList.GetHeadPosition();
+		POSITION myb1pos2;
+		while (myb1pos != NULL) {
+			myb1pos2 = myb1pos;
+			CBomb *_myb1pos = (CBomb *)BombList.GetNext(myb1pos);
+			CRect explo11;
+			if (explo11.IntersectRect(_myb1pos->GetRect(), boss3->GetRect()) != 0) {
+				//积分计算
+				accupt += 10;
+				boss3->setblood(-10);
+				//爆炸效果
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 2, _myb1pos->GetPoint().y - 60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 3, _myb1pos->GetPoint().y - 65));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x + 4, _myb1pos->GetPoint().y - 60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x - 1, _myb1pos->GetPoint().y - 65));
+				Expl_bigList.AddTail(new CExpl_big(_myb1pos->GetPoint().x - 3, _myb1pos->GetPoint().y - 78));
+				ExploList.AddTail(new CExplosion(boss3->GetPoint().x + 3, boss3->GetPoint().y - 70));
+				ExploList.AddTail(new CExplosion(boss3->GetPoint().x + 2, boss3->GetPoint().y - 70));
+				BombList.RemoveAt(myb1pos2);
+				delete(_myb1pos);
+				if (boss3->getblood() < 0) {
+					boss3 = NULL;
+					//积分计算
+					accupt += 500;
+					CEnemy::died_num = 0;
+				}
+				break;
+
+			}
+		}
+	}
+
 
 	//我的子弹K打到boss1
 	if (myplane != NULL&&boss1 != NULL&&CEnemy::died_num>40) {
@@ -685,9 +791,10 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 				accupt += 5;
 				boss1->setblood(-3);
 				//爆炸效果
-				Expl_bigList.AddTail(new CExpl_big(boss1->GetPoint().x + 150, boss1->GetPoint().y + 100));
-				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 120, boss1->GetPoint().y + 120));
-				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 200, boss1->GetPoint().y + 120));
+				Expl_bigList.AddTail(new CExpl_big(_myb1kpos->GetPoint().x + 2, _myb1kpos->GetPoint().y - 60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1kpos->GetPoint().x + 3, _myb1kpos->GetPoint().y - 65));
+				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 3, boss1->GetPoint().y - 70));
+				ExploList.AddTail(new CExplosion(boss1->GetPoint().x + 2, boss1->GetPoint().y - 70));
 				Bomb1List.RemoveAt(mybkkpos2);
 				delete(_myb1kpos);
 				if (boss1->getblood() < 0) {
@@ -714,9 +821,10 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 				accupt += 5;
 				boss2->setblood(-3);
 				//爆炸效果
-				Expl_bigList.AddTail(new CExpl_big(boss2->GetPoint().x + 150, boss2->GetPoint().y + 100));
-				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 120, boss2->GetPoint().y + 120));
-				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 200, boss2->GetPoint().y + 120));
+				Expl_bigList.AddTail(new CExpl_big(_myb1kpos->GetPoint().x + 2, _myb1kpos->GetPoint().y - 60));
+				Expl_bigList.AddTail(new CExpl_big(_myb1kpos->GetPoint().x + 3, _myb1kpos->GetPoint().y - 65));
+				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 3, boss2->GetPoint().y - 70));
+				ExploList.AddTail(new CExplosion(boss2->GetPoint().x + 2, boss2->GetPoint().y - 70));
 				Bomb1List.RemoveAt(mybkkpos2);
 				delete(_myb1kpos);
 				if (boss2->getblood() < 0) {
@@ -729,7 +837,34 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 	}
-
+	//我的子弹K打到boss3
+	if (myplane != NULL&&boss1 == NULL && boss2 == NULL && boss3!=NULL &&CEnemy::died_num>10) {
+		POSITION mybkkpos = Bomb1List.GetHeadPosition();
+		POSITION mybkkpos2;
+		while (mybkkpos != NULL) {
+			mybkkpos2 = mybkkpos;
+			CBullet1 *_myb1kpos = (CBullet1 *)Bomb1List.GetNext(mybkkpos);
+			CRect explo11k;
+			if (explo11k.IntersectRect(_myb1kpos->GetRect(), boss3->GetRect()) != 0) {
+				//积分计算
+				accupt += 5;
+				boss3->setblood(-3);
+				//爆炸效果
+				Expl_bigList.AddTail(new CExpl_big(_myb1kpos->GetPoint().x + 2, _myb1kpos->GetPoint().y - 60));
+				ExploList.AddTail(new CExplosion(boss3->GetPoint().x + 3, boss3->GetPoint().y - 70));
+				ExploList.AddTail(new CExplosion(boss3->GetPoint().x + 2, boss3->GetPoint().y - 70));
+				Bomb1List.RemoveAt(mybkkpos2);
+				delete(_myb1kpos);
+				if (boss3->getblood() < 0) {
+					boss3 = NULL;
+					//积分计算
+					accupt += 50;
+					CEnemy::died_num = 0;
+				}
+				break;
+			}
+		}
+	}
 
 	//普通敌机子弹打到我
 	if (myplane != NULL) {
@@ -822,6 +957,29 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 		}
 	}
 
+	//boss3的子弹1打到我
+	else if (myplane != NULL&&boss1 == NULL&& boss2 == NULL && boss3!=NULL &&CEnemy::died_num>10) {
+		POSITION bb1pos = BossBullet1List.GetHeadPosition();
+		POSITION bb1pos2;
+		while (bb1pos != NULL) {
+			bb1pos2 = bb1pos;
+			CBoss1Bullet1 *_bbpos = (CBoss1Bullet1 *)BossBullet1List.GetNext(bb1pos);
+			CRect exp111;
+			if (exp111.IntersectRect(_bbpos->GetRect(), myplane->GetRect()) != 0 && nodied == 0) {
+				myplane->setblood(-50);
+				ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 15, myplane->GetPoint().y + 30));
+				ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 60, myplane->GetPoint().y + 30));
+				ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 45, myplane->GetPoint().y + 60));
+				BossBullet1List.RemoveAt(bb1pos2);
+				delete(_bbpos);
+				if (myplane->getblood() < 0) {
+					myplane = NULL;
+				}
+				break;
+			}
+		}
+	}
+
 	//boss1子弹2打到我
 	if (myplane != NULL&&boss1 != NULL&&CEnemy::died_num>40) {
 		POSITION bb2pos = BossBullet2List.GetHeadPosition();
@@ -846,6 +1004,28 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 	}
 	//boss2子弹2打到我
 	else if (myplane != NULL&&boss1 == NULL&&boss2!=NULL &&CEnemy::died_num>10) {
+		POSITION bb2pos = BossBullet2List.GetHeadPosition();
+		POSITION bb2pos2;
+		while (bb2pos != NULL) {
+			bb2pos2 = bb2pos;
+			CBoss1Bullet2 *_bb2pos = (CBoss1Bullet2 *)BossBullet2List.GetNext(bb2pos);
+			CRect exp1111;
+			if (exp1111.IntersectRect(_bb2pos->GetRect(), myplane->GetRect()) != 0 && nodied == 0) {
+				myplane->setblood(-150);
+				ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 15, myplane->GetPoint().y + 30));
+				ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 60, myplane->GetPoint().y + 30));
+				ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 45, myplane->GetPoint().y + 60));
+				BossBullet2List.RemoveAt(bb2pos2);
+				delete(_bb2pos);
+				if (myplane->getblood() < 0) {
+					myplane = NULL;
+				}
+				break;
+			}
+		}
+	}
+	//boss3子弹2打到我
+	else if (myplane != NULL&&boss1 == NULL&&boss2 == NULL && boss3 !=NULL &&CEnemy::died_num>10) {
 		POSITION bb2pos = BossBullet2List.GetHeadPosition();
 		POSITION bb2pos2;
 		while (bb2pos != NULL) {
@@ -936,7 +1116,16 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 			myplane = NULL;
 		}
 	}
-
+	//boss3与我相撞
+	else if (myplane != NULL&&boss1 == NULL&& boss2 == NULL && boss3 !=NULL&&CEnemy::died_num>40 && nodied == 0) {
+		CRect exx;
+		if (exx.IntersectRect(myplane->GetRect(), boss2->GetRect()) != 0) {
+			ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 15, myplane->GetPoint().y + 30));
+			ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 60, myplane->GetPoint().y + 30));
+			ExploList.AddHead(new CExplosion(myplane->GetPoint().x + 45, myplane->GetPoint().y + 60));
+			myplane = NULL;
+		}
+	}
 
 	//小敌机子弹和普通敌机子弹爆炸效果
 	POSITION Explopos = ExploList.GetHeadPosition();
@@ -1028,8 +1217,8 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 		if (num <= 50)
 			cdc.TextOutW(10, 25, _T("|"));
 	}
-	//boss1血量显示
-	else if (boss1 == NULL&&boss2!=NULL &&CEnemy::died_num>10) {
+	//boss2血量显示
+	else if (boss1 == NULL&&boss2 != NULL &&CEnemy::died_num > 10) {
 		CFont font;
 		font.CreateFont(20, 20, 0, 0, 1500, TRUE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_MODERN, _T("微软雅黑"));
 		cdc.SelectObject(&font);
@@ -1039,26 +1228,59 @@ void CPlaneWarView::OnTimer(UINT_PTR nIDEvent)
 		int num = boss2->getblood();
 		if (num == 1100)
 			cdc.TextOutW(10, 25, _T("|||||||||||||||||||||||||||||||"));
-		if (num >= 900 && num < 1000)
+		if (num >= 1000 && num < 1100)
 			cdc.TextOutW(10, 25, _T("||||||||||||||||||||||||||||"));
-		if (num >= 800 && num < 900)
+		if (num >= 850 && num < 1000)
 			cdc.TextOutW(10, 25, _T("||||||||||||||||||||||||"));
-		if (num >= 700 && num < 800)
+		if (num >= 700 && num < 850)
 			cdc.TextOutW(10, 25, _T("|||||||||||||||||||||"));
-		if (num >= 600 && num < 700)
+		if (num >= 550 && num < 700)
 			cdc.TextOutW(10, 25, _T("||||||||||||||||||"));
-		if (num >= 500 && num < 600)
+		if (num >= 450 && num < 550)
 			cdc.TextOutW(10, 25, _T("|||||||||||||||"));
-		if (num >= 400 && num < 500)
+		if (num >= 350 && num < 450)
 			cdc.TextOutW(10, 25, _T("||||||||||||"));
-		if (num >= 300 && num < 400)
+		if (num >= 250 && num < 350)
 			cdc.TextOutW(10, 25, _T("|||||||||"));
-		if (num >= 200 && num < 300)
+		if (num >= 150 && num < 250)
 			cdc.TextOutW(10, 25, _T("||||||"));
-		if (num >= 100 && num < 200)
+		if (num >= 100 && num < 150)
 			cdc.TextOutW(10, 25, _T("|||"));
 		if (num <= 50)
 			cdc.TextOutW(10, 25, _T("|"));
+	}
+		//boss3血量显示
+		else if (boss1 == NULL&&boss2 == NULL && boss3 !=NULL &&CEnemy::died_num>10) {
+			CFont font;
+			font.CreateFont(20, 20, 0, 0, 1500, TRUE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_MODERN, _T("微软雅黑"));
+			cdc.SelectObject(&font);
+			cdc.SetTextColor(RGB(255, 255, 0));
+			cdc.SetBkMode(TRANSPARENT);
+			cdc.TextOutW(10, 10, _T("血量:"));
+			int num = boss3->getblood();
+			if (num == 1400)
+				cdc.TextOutW(10, 25, _T("|||||||||||||||||||||||||||||||"));
+			if (num >= 1300 && num < 1400)
+				cdc.TextOutW(10, 25, _T("||||||||||||||||||||||||||||"));
+			if (num >= 1200 && num < 1300)
+				cdc.TextOutW(10, 25, _T("||||||||||||||||||||||||"));
+			if (num >= 1000 && num < 1200)
+				cdc.TextOutW(10, 25, _T("|||||||||||||||||||||"));
+			if (num >= 800 && num < 1000)
+				cdc.TextOutW(10, 25, _T("||||||||||||||||||"));
+			if (num >= 600 && num < 800)
+				cdc.TextOutW(10, 25, _T("|||||||||||||||"));
+			if (num >= 400 && num < 600)
+				cdc.TextOutW(10, 25, _T("||||||||||||"));
+			if (num >= 300 && num < 400)
+				cdc.TextOutW(10, 25, _T("|||||||||"));
+			if (num >= 200 && num < 300)
+				cdc.TextOutW(10, 25, _T("||||||"));
+			if (num >= 100 && num < 200)
+				cdc.TextOutW(10, 25, _T("|||"));
+			if (num <= 50)
+				cdc.TextOutW(10, 25, _T("|"));
+
 	}
 
 
@@ -1111,6 +1333,7 @@ int CPlaneWarView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CBullet1::LoadImage();
 	CExpl_big::LoadImage();
 	CBoss2::LoadImage();
+	CBoss3::LoadImage();
 	return 0;
 }
 
