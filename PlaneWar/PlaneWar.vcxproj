@@ -190,6 +190,7 @@
     <ClInclude Include="Boss1.h" />
     <ClInclude Include="Boss1Bullet1.h" />
     <ClInclude Include="Boss1Bullet2.h" />
+    <ClInclude Include="Boss2.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Bullet1.h" />
     <ClInclude Include="Enemy.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="Boss1Bullet1.cpp" />
     <ClCompile Include="Boss1Bullet2.cpp" />
+    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Bullet1.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -253,6 +255,7 @@
     <Image Include="res\bg4.bmp" />
     <Image Include="res\bitmap2.bmp" />
     <Image Include="res\BOOSK子弹.bmp" />
+    <Image Include="res\BOSS2.bmp" />
     <Image Include="res\BOSS3.bmp" />
     <Image Include="res\BOSS子弹.bmp" />
     <Image Include="res\BOSS子弹.png" />

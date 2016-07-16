@@ -14,6 +14,7 @@
 #include "Boss1Bullet2.h"
 #include "Bullet1.h"
 #include "Expl_big.h"
+#include "Boss2.h"
 
 class CPlaneWarView : public CView
 {
@@ -62,6 +63,7 @@ public:
 	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 	CMyPlane *myplane = new CMyPlane;
 	CBoss1 *boss1 = new CBoss1;
+	CBoss2 *boss2 = new CBoss2;
 	//CEnemy enemy;
 	CObList EnemyList;
 	CObList BombList;

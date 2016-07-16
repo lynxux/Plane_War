@@ -118,6 +118,8 @@ IDB_background2         BITMAP                  "res\\É³Ä®±³¾°.bmp"
 
 IDB_background3         BITMAP                  "res\\bg2.bmp"
 
+IDB_Boss2               BITMAP                  "res\\BOSS2.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
