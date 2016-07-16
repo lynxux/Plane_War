@@ -43,14 +43,16 @@
 #define IDB_background                  350
 #define IDB_ME                          351
 #define IDB_Bullet1                     352
-#define IDB_BITMAP2                     355
 #define IDB_Expl_big                    355
+#define IDB_background2                 356
+#define IDB_BITMAP2                     357
+#define IDB_background3                 357
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        356
+#define _APS_NEXT_RESOURCE_VALUE        358
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310

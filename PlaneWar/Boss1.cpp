@@ -9,8 +9,7 @@ CBoss1::CBoss1() {
 	m_nWait = 0;
 	CBoss1::m_ptPos.x = 0;
 	CBoss1::m_ptPos.y = 0;
-	CBoss1::blood1 = 1000;
-	//died_num = 0;
+	CBoss1::blood1 = 800;
 }
 
 CBoss1::CBoss1(int x)
@@ -22,7 +21,7 @@ CBoss1::CBoss1(int x)
 	m_nWait = 0;
 	CBoss1::m_ptPos.x = rand() % 1800 + x + 0;
 	CBoss1::m_ptPos.y = 0;
-	CBoss1::blood1 = 600;
+	CBoss1::blood1 = 800;
 
 }
 

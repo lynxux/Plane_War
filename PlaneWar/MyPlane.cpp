@@ -22,8 +22,8 @@ BOOL CMyPlane::Draw(CDC *pDC,BOOL bPause) {
 	
 
 
-    CMyPlane::m_ptPos.x += m_nHorMotion * 5;
-	CMyPlane::m_ptPos.y += m_nVerMotion * 5;
+    CMyPlane::m_ptPos.x += m_nHorMotion * 6;
+	CMyPlane::m_ptPos.y += m_nVerMotion * 6;
 	//CString s;
 	//s.Format(_T("血量"));
 	//s.Format(_T("现在坐标（%d,%d）"), m_nHorMotion, m_nVerMotion);

@@ -114,6 +114,10 @@ IDB_Bullet1             BITMAP                  "res\\ÉÁµç×Óµ¯.bmp"
 
 IDB_Expl_big            BITMAP                  "res\\e_Mid.BMP"
 
+IDB_background2         BITMAP                  "res\\É³Ä®±³¾°.bmp"
+
+IDB_background3         BITMAP                  "res\\bg2.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
